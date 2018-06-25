@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { Platform, Dimensions, StyleSheet, ScrollView, Text, View } from 'react-native';
 import MapView from 'react-native-maps';
-import Reactotron from 'reactotron-react-native'
 
 const { height, width } = Dimensions.get('window');
 
 
-export default class App extends Component {
+export default class Places extends Component {
+  static navigationOptions = {
+    title: 'Places'
+  }
 
   state= {
     latitude: -27.2106710,
@@ -33,15 +35,16 @@ export default class App extends Component {
         latitude: -30.0375334,
         longitude: -51.2176093,
       }
-    ]    
+    ]
   }
 
   _mapReady = () => {
     this.state.places[0].mark.showCallout();
   }
-  
+
   render() {
-    
+    const { navigate } = this.props.navigation;
+
     const { latitude, longitude } = this.state.places[0];
 
     return (
@@ -82,7 +85,7 @@ export default class App extends Component {
           pagingEnabled
           onMomentumScrollEnd={(e) => {
             const place = ( e.nativeEvent.contentOffset.x > 0)
-              ? e.nativeEvent.contentOffset.x / width 
+              ? e.nativeEvent.contentOffset.x / width
               : 0;
             placeRound =  Math.round(place);
             const { latitude, longitude, mark } = this.state.places[placeRound];
@@ -97,14 +100,14 @@ export default class App extends Component {
               <Text>{place.title}</Text>
               <Text>{place.description}</Text>
             </View>
-          ))} 
-          
+          ))}
+
         </ScrollView>
-      </View>      
+      </View>
 
     );
   }
-  
+
 }
 
 const styles = StyleSheet.create({

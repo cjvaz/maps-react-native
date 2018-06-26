@@ -19,7 +19,7 @@ export default class Home extends Component {
         <Button
           title="Directions"
           onPress={() =>
-            navigate('Directions')
+            navigate('EnterDirections')
           }
         />
       </View>
